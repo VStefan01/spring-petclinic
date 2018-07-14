@@ -14,10 +14,24 @@ pipeline {
     }
     stage('Build') {
       steps {
-        sh 'mvn clean package'
-        junit '**/target/surefire-reports/TEST-*.xml'
-        archiveArtifacts artifacts:'target/*.jar', fingerprint: true
+        sh 'mvn clean compile'
       }
+    }
+    stage('Test') {
+      steps {
+        sh 'mvn test'
+      }
+    }
+    stage('Package') {
+      steps {
+        sh 'mvn package'
+      }
+    }
+  }
+  post {
+    always {
+      junit '**/target/surefire-reports/TEST-*.xml'
+      archiveArtifacts artifacts:'target/*.jar', fingerprint: true
     }
   }
 }
