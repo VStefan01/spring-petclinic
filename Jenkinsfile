@@ -1,5 +1,8 @@
 pipeline {
-  agent {docker 'maven:3.5-alpine'}
+  agent {
+    docker 'maven:3.5-alpine'
+    label 'linux1'
+  }
   stages {
     stage('Checkout') {
       steps {
@@ -10,6 +13,7 @@ pipeline {
       steps {
         sh 'mvn clean package'
         junit '**/target/surefire-reports/TEST-*.xml'
+        archiveArtifacts artifacts:'target/*.jar', fingerprint: true
       }
     }
   }
