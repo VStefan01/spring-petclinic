@@ -101,7 +101,7 @@ pipeline {
         stage('Deploy') {
             //agent { label 'master'}
             steps {
-                dir('/opt/wms_app/wms') {
+                dir('/opt/petclinic_app/petclinic') {
                     sh "docker-compose up -d --force-recreate"
                 }
             }
