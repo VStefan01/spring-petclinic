@@ -5,7 +5,7 @@ services:
     image: nginx:alpine
     container_name: pet_nginx
     depends_on: 
-      - app
+      - pet_app
     ports:
       - "80:80"
       - "443:443"
@@ -31,7 +31,7 @@ services:
       MYSQL_USER: stefan
       MYSQL_PASSWORD: passwd
 
-  app:
+  pet_app:
     image: pet/app:latest
     container_name: pet_app
     depends_on: 
